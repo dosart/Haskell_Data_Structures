@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module List where
 
 infix 5 :-:
@@ -17,6 +18,10 @@ removeItem x (y:-:ys)
 size :: List a -> Int
 size Empty = 0
 size (x:-:xs) = 1 + size xs
+
+head' :: List a -> Either String a
+head' Empty = Left "List is empty"
+head' (x:-:xs) = Right x
 
 concat' :: List a -> List a -> List a
 concat' Empty xs = xs
@@ -69,7 +74,7 @@ foldr' f ini (x:-:xs) = x `f` foldr' f ini xs
 -- folder version 
 
 map'' :: (a -> b) -> List a -> List b
-map'' f = foldr' (\x acc -> f x :-: acc) Empty 
+map'' f = foldr' (\x acc -> f x :-: acc) Empty
 
 filter'' :: (a -> Bool) -> List a -> List a
 filter'' f = foldr' (\x acc -> if f x then x :-: acc else acc) Empty
