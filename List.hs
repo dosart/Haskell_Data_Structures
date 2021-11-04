@@ -23,6 +23,10 @@ head' :: List a -> Either String a
 head' Empty = Left "List is empty"
 head' (x:-:xs) = Right x
 
+tail' :: List a -> Either String (List a)
+tail' Empty = Left "List is empty"
+tail' (x:-:xs) = Right xs
+
 concat' :: List a -> List a -> List a
 concat' Empty xs = xs
 concat' xs Empty = xs
