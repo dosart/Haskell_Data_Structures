@@ -16,6 +16,12 @@ instance Applicative List where
   Empty <*> _ = Empty
   (f:-:fs)  <*>  xs = concat' (map' f xs) (fs <*> xs)
 
+instance Monad List where
+  return = pure
+
+  Empty >>= _ = Empty
+  xs >>= f = join' (map' f xs)
+
 
 addItem :: List a -> a -> List a
 addItem Empty _ = Empty
@@ -43,6 +49,10 @@ concat' :: List a -> List a -> List a
 concat' Empty xs = xs
 concat' xs Empty = xs
 concat' (x :-: xs) ys = x :-: concat' xs ys
+
+join' :: List (List a) -> List a
+join' Empty = Empty
+join' (x :-: xs) = concat' x (join' xs) 
 
 elem' :: (Eq a) => a -> List a -> Bool
 elem' _ Empty = False
