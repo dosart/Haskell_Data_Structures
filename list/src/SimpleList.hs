@@ -51,8 +51,7 @@ concat' xs Empty = xs
 concat' (x :-: xs) ys = x :-: concat' xs ys
 
 join' :: List (List a) -> List a
-join' Empty = Empty
-join' (x :-: xs) = concat' x (join' xs) 
+join' = foldr' concat' Empty
 
 elem' :: (Eq a) => a -> List a -> Bool
 elem' _ Empty = False
