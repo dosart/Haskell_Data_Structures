@@ -10,6 +10,12 @@ data List a = Empty | a :-: (List a)
 instance Functor List where
   fmap = map'
 
+instance Applicative List where
+  pure x =  x :-: Empty
+
+  Empty <*> _ = Empty
+  (f:-:fs)  <*>  xs = concat' (map' f xs) (fs <*> xs)
+
 
 addItem :: List a -> a -> List a
 addItem Empty _ = Empty
