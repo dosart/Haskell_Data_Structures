@@ -1,1 +1,1 @@
-# Haskell_Data_Structures
+# haskell-data-structures
