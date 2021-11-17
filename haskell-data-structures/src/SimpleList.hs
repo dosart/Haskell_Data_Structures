@@ -1,44 +1,28 @@
 module SimpleList
-  (
-    List,
-    addItem,
-    removeItem,
-    size,
-    head',
-    tail',
-    concat',
-    join',
-    elem',
-    fromList,
-    toList,
-    replicate',
-    take',
-    zip',
-    map',
-    filter',
-    foldr'
-  ) where
+       (List, addItem, removeItem, size, head', tail', concat', join', elem',
+        fromList, toList, replicate', take', zip', map', filter', foldr')
+       where
 
 infix 5 :-:
 
-data List a = Empty | a :-: (List a)
-  deriving (Show)
+data List a = Empty
+            | a :-:( List a)
+                deriving (Show)
 
 instance Functor List where
-  fmap = map'
+        fmap = map'
 
 instance Applicative List where
-  pure x =  x :-: Empty
+        pure x = x :-: Empty
 
-  Empty <*> _ = Empty
-  (f:-:fs)  <*>  xs = concat' (map' f xs) (fs <*> xs)
+        Empty <*> _ = Empty
+        (f :-: fs) <*> xs = concat' (map' f xs) (fs <*> xs)
 
 instance Monad List where
-  return = pure
+        return = pure
 
-  Empty >>= _ = Empty
-  xs >>= f = join' (map' f xs)
-
+        Empty >>= _ = Empty
+        xs >>= f = join' (map' f xs)
 
 addItem :: List a -> a -> List a
 addItem Empty _ = Empty
@@ -86,13 +70,13 @@ toList = foldr (:-:) Empty
 replicate' :: Int -> a -> List a
 replicate' n x
   | n <= 0 = Empty
-  | otherwise = x :-: replicate' (n -1) x
+  | otherwise = x :-: replicate' (n - 1) x
 
 take' :: Int -> List a -> List a
 take' _ Empty = Empty
 take' n (x :-: xs)
   | n <= 0 = Empty
-  | otherwise = x :-: take' (n -1) xs
+  | otherwise = x :-: take' (n - 1) xs
 
 zip' :: List a -> List b -> List (a, b)
 zip' _ Empty = Empty
@@ -116,7 +100,7 @@ foldr' f ini (x :-: xs) = x `f` foldr' f ini xs
 -- folder version
 
 map'' :: (a -> b) -> List a -> List b
-map'' f = foldr' (\x acc -> f x :-: acc) Empty
+map'' f = foldr' (\ x acc -> f x :-: acc) Empty
 
 filter'' :: (a -> Bool) -> List a -> List a
-filter'' f = foldr' (\x acc -> if f x then x :-: acc else acc) Empty
+filter'' f = foldr' (\ x acc -> if f x then x :-: acc else acc) Empty
