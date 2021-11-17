@@ -1,6 +1,23 @@
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-
-module SimpleList where
+module SimpleList
+  (
+    List,
+    addItem,
+    removeItem,
+    size,
+    head',
+    tail',
+    concat',
+    join',
+    elem',
+    fromList,
+    toList,
+    replicate',
+    take',
+    zip',
+    map',
+    filter',
+    foldr'
+  ) where
 
 infix 5 :-:
 
