@@ -12,4 +12,4 @@ run:
 	@make lint
 	stack exec haskell-data-structures-exe
 
-.PHONY: build formatte build
+.PHONY: build formatte build lint

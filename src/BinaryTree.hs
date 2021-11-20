@@ -1,7 +1,8 @@
-module BinaryTree (insert, fromList, leaf) where
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+module BinaryTree (insert, fromList, leaf, folder) where
 
 data BinaryTree a = Empty
-                  | Node a (BinaryTree a) (BinaryTree a)
+                  | Node (BinaryTree a) a (BinaryTree a)
                       deriving (Show)
 
 fromList :: Ord a => [a] -> BinaryTree a
@@ -9,10 +10,15 @@ fromList = foldr insert Empty
 
 insert :: Ord a => a -> BinaryTree a -> BinaryTree a
 insert x Empty = leaf x
-insert x (Node a left right)
-  | a == x = Node a left right
-  | a < x = Node a (insert x left) right
-  | otherwise = Node a left (insert x right)
+insert x (Node left a right)
+  | a == x = Node left a right
+  | a < x = Node (insert x left) a right
+  | otherwise = Node left a (insert x right)
 
 leaf :: Ord a => a -> BinaryTree a
-leaf x = Node x Empty Empty
+leaf x = Node Empty x Empty
+
+folder :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
+folder ini _ Empty = ini
+folder ini f (Node l a r) = f (folder ini f l) a (folder ini f r)
+
