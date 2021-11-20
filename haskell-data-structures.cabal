@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      BinaryTree
       SimpleList
   other-modules:
       Paths_haskell_data_structures
