@@ -24,6 +24,9 @@ leaf x = Node Empty x Empty
 size :: BinaryTree a -> Integer
 size = folder 0 (\left x right -> 1 + left + right)
 
+depth :: BinaryTree a -> Integer
+depth = folder 0 (\left x right -> 1 + max left right)
+
 folder :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
 folder ini _ Empty = ini
 folder ini f (Node l a r) = f (folder ini f l) a (folder ini f r)
