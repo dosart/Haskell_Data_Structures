@@ -21,6 +21,9 @@ insert x (Node left a right)
 leaf :: Ord a => a -> BinaryTree a
 leaf x = Node Empty x Empty
 
+size :: BinaryTree a -> Integer
+size = folder 0 (\left x right -> 1 + left + right)
+
 folder :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
 folder ini _ Empty = ini
 folder ini f (Node l a r) = f (folder ini f l) a (folder ini f r)
