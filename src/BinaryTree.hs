@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-module BinaryTree (insert, fromList, leaf, folder) where
+module BinaryTree (insert, fromList, leaf, folder, map) where
 
 data BinaryTree a = Empty
                   | Node (BinaryTree a) a (BinaryTree a)
