@@ -5,6 +5,9 @@ data BinaryTree a = Empty
                   | Node (BinaryTree a) a (BinaryTree a)
                       deriving (Show)
 
+toList :: BinaryTree a -> [a]
+toList = folder [] (\left x right -> left ++ [x] ++ right)
+
 fromList :: Ord a => [a] -> BinaryTree a
 fromList = foldr insert Empty
 
