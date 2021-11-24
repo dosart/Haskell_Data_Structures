@@ -36,6 +36,10 @@ leaf x = Node Empty x Empty
 treeSize :: BinaryTree a -> Integer
 treeSize = treeFolder 0 (\ left x right -> 1 + left + right)
 
+treeEmpty :: BinaryTree a -> Bool
+treeEmpty Empty = True
+treeEmpty _ = False
+
 treeDepth :: BinaryTree a -> Integer
 treeDepth = treeFolder 0 (\ left x right -> 1 + max left right)
 
