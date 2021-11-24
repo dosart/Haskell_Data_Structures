@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module BinaryTree (treeInsert, fromList, toList, leaf, treeFolder, treeMap, treeMinimum, treeMaximum, treeEmpty, treeSize) where
 
-data BinaryTree a = Empty
+data (Ord a, Eq a) => BinaryTree a = Empty
                   | Node (BinaryTree a) a (BinaryTree a)
                       deriving (Show)
 
