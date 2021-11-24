@@ -1,6 +1,5 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-module BinaryTree (treeInsert, fromList, leaf, treeFolder, treeMap) where
-import Control.Arrow (ArrowChoice(right, left))
+module BinaryTree (treeInsert, fromList, toList, leaf, treeFolder, treeMap, treeMinimum, treeMaximum, treeEmpty, treeSize) where
 
 data BinaryTree a = Empty
                   | Node (BinaryTree a) a (BinaryTree a)
