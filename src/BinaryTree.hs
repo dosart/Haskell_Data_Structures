@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module BinaryTree (treeInsert, fromList, leaf, treeFolder, treeMap) where
-import Control.Arrow (ArrowChoice(right))
+import Control.Arrow (ArrowChoice(right, left))
 
 data BinaryTree a = Empty
                   | Node (BinaryTree a) a (BinaryTree a)
@@ -22,10 +22,14 @@ treeInsert x (Node left a right)
   | x < a = Node (treeInsert x left) a right
   | otherwise = Node left a (treeInsert x right)
 
-treeMinimum:: Ord a => BinaryTree a -> Maybe a
-treeMinimum Empty = Nothing 
-treeMinimum(Node Empty a right) = Just a 
-treeMinimum(Node left  _ _) = treeMinimum left 
+treeMinimum :: Ord a => BinaryTree a -> Maybe a
+treeMinimum Empty = Nothing
+treeMinimum (Node Empty a right) = Just a
+treeMinimum (Node left _ _) = treeMinimum left
+
+treeMaximum :: Ord a => BinaryTree a -> Maybe a
+treeMaximum Empty = Nothing 
+treeMaximum (Node left x right) = return (treeFolder x (\left x right -> max x (max left right)) (Node left x right))
 
 leaf :: Ord a => a -> BinaryTree a
 leaf x = Node Empty x Empty
