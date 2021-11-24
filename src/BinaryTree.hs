@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-module BinaryTree (treeInsert, fromList, leaf, folder, treeMap) where
+module BinaryTree (treeInsert, fromList, leaf, treeFolder, treeMap) where
 import Control.Arrow (ArrowChoice(right))
 
 data BinaryTree a = Empty
@@ -10,7 +10,7 @@ instance Functor BinaryTree where
         fmap = treeMap
 
 toList :: BinaryTree a -> [a]
-toList = folder [] (\ left x right -> left ++ [x] ++ right)
+toList = treeFolder [] (\ left x right -> left ++ [x] ++ right)
 
 fromList :: Ord a => [a] -> BinaryTree a
 fromList = foldr treeInsert Empty
@@ -22,24 +22,24 @@ treeInsert x (Node left a right)
   | x < a = Node (treeInsert x left) a right
   | otherwise = Node left a (treeInsert x right)
 
-treeMinimum :: Ord a => BinaryTree a -> Maybe a
+treeMinimum:: Ord a => BinaryTree a -> Maybe a
 treeMinimum Empty = Nothing 
-treeMinimum (Node Empty a right) = Just a 
-treeMinimum (Node left  _ _) = treeMinimum left 
+treeMinimum(Node Empty a right) = Just a 
+treeMinimum(Node left  _ _) = treeMinimum left 
 
 leaf :: Ord a => a -> BinaryTree a
 leaf x = Node Empty x Empty
 
-size :: BinaryTree a -> Integer
-size = folder 0 (\ left x right -> 1 + left + right)
+treeSize :: BinaryTree a -> Integer
+treeSize = treeFolder 0 (\ left x right -> 1 + left + right)
 
-depth :: BinaryTree a -> Integer
-depth = folder 0 (\ left x right -> 1 + max left right)
+treeDepth :: BinaryTree a -> Integer
+treeDepth = treeFolder 0 (\ left x right -> 1 + max left right)
 
 treeMap :: (a -> b) -> BinaryTree a -> BinaryTree b
-treeMap f = folder Empty (\ left x right -> Node left (f x) right)
+treeMap f = treeFolder Empty (\ left x right -> Node left (f x) right)
 
-folder :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
-folder ini _ Empty = ini
-folder ini f (Node l a r) = f (folder ini f l) a (folder ini f r)
+treeFolder :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
+treeFolder ini _ Empty = ini
+treeFolder ini f (Node l a r) = f (treeFolder ini f l) a (treeFolder ini f r)
 
