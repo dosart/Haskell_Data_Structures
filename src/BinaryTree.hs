@@ -23,9 +23,8 @@ treeInsert x (Node left a right)
   | otherwise = Node left a (treeInsert x right)
 
 treeMinimum :: Ord a => BinaryTree a -> Maybe a
-treeMinimum Empty = Nothing
-treeMinimum (Node Empty a right) = Just a
-treeMinimum (Node left _ _) = treeMinimum left
+treeMinimum Empty = Nothing 
+treeMinimum (Node left x right) = return (treeFolder x (\left x right -> min x (min left right)) (Node left x right))
 
 treeMaximum :: Ord a => BinaryTree a -> Maybe a
 treeMaximum Empty = Nothing 
