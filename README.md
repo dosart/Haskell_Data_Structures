@@ -6,6 +6,12 @@ The project was made as part of the [Coding Interview University](https://github
 - stack (build tool for Haskell )
 - make
 
+## Run
+```console
+$ make build
+$ make run
+```
+
 ## SimpleList
 
 - [x] implements the Functor, Applicative, Monad type classes
