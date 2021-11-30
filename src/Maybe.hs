@@ -1,7 +1,8 @@
-import Prelude hiding (Maybe, Just, Nothing, Functor, fmap)
+import Prelude hiding (Functor, Just, Maybe, Nothing, fmap)
 
-data Maybe a = Nothing | Just a
+data Maybe a = Nothing
+             | Just a
 
 instance Functor Maybe where
-  fmap _ Nothing = Nothing
-  fmap f (Just x) = Just (f x)
+        fmap _ Nothing = Nothing
+        fmap f (Just x) = Just (f x)

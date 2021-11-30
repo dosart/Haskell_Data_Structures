@@ -1,7 +1,7 @@
-import Prelude hiding (Either, Left, Right, Functor, fmap)
+import Prelude hiding (Either, Left, Right)
 
 data Either a b = Left a | Right b
 
-instance Functor Either e where
+instance Functor (Either e) where
   fmap _ (Left x) = Left x
   fmap f (Right x) = Right (f x)

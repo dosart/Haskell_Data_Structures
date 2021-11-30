@@ -26,6 +26,8 @@ source-repository head
 library
   exposed-modules:
       BinaryTree
+      Either
+      Maybe
       SimpleList
   other-modules:
       Paths_haskell_data_structures
