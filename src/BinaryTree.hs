@@ -4,9 +4,9 @@ module BinaryTree
         treeMaximum, treeEmpty, treeSize)
        where
 
-data (Ord a, Eq a) => BinaryTree a = Empty
-                                   | Node (BinaryTree a) a (BinaryTree a)
-                                       deriving (Show)
+data BinaryTree a = Empty
+                  | Node (BinaryTree a) a (BinaryTree a)
+                      deriving (Show)
 
 instance Functor BinaryTree where
         fmap = treeMap
@@ -52,7 +52,8 @@ treeDepth :: BinaryTree a -> Integer
 treeDepth = treeFolds 0 (\ left x right -> 1 + max left right)
 
 treeMap :: (a -> b) -> BinaryTree a -> BinaryTree b
-treeMap f = treeFolds Empty (\ left x right -> Node left (f x) right)
+treeMap _ Empty = Empty
+treeMap f (Node left x right) = Node (treeMap f right) (f x) (treeMap f left)
 
 treeFolds :: b -> (b -> a -> b -> b) -> BinaryTree a -> b
 treeFolds ini _ Empty = ini
