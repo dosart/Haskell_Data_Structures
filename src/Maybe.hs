@@ -4,7 +4,7 @@ import Prelude hiding (Just, Maybe, Nothing)
 
 data Maybe a = Nothing
              | Just a
-                 deriving (Show)
+                 deriving (Show, Eq, Ord)
 
 instance Functor Maybe where
         fmap _ Nothing = Nothing
@@ -15,3 +15,14 @@ instance Applicative Maybe where
         
         Nothing  <*> _ = Nothing
         (Just f) <*> x =  fmap f x
+
+instance Monad Maybe where
+        return x = Just x
+        
+        Nothing  >>= _ = Nothing
+        (Just x) >>= k = Just (k x)
+        
+        Nothing  >> _ = Nothing
+        (Just x) >> m = m
+        
+        fail _ = Nothing
