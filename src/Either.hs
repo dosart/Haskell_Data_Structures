@@ -8,3 +8,11 @@ data Either a b = Left a
 instance Functor (Either e) where
         fmap _ (Left x) = Left x
         fmap f (Right x) = Right (f x)
+
+instance Monad (Either e) where
+        return = Right
+
+        (Left  x) >>= _ = Left x
+        (Right x) >>= k = k r
+
+        fail = Left
